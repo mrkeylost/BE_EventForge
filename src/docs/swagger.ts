@@ -35,6 +35,9 @@ const doc = {
         identifier: "string",
         password: "string",
       },
+      ActivationRequest: {
+        code: "string",
+      },
     },
   },
 };

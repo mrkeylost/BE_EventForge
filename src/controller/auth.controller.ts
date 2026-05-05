@@ -9,7 +9,25 @@ const registerValidationSchema = Yup.object({
   fullName: Yup.string().required(),
   username: Yup.string().required(),
   email: Yup.string().email().required(),
-  password: Yup.string().required(),
+  password: Yup.string()
+    .required()
+    .min(6, "Password must be at least 6 characters")
+    .test(
+      "at-least-one-uppercase-letter",
+      "Contains at leaset one uppercase letter",
+      (value) => {
+        if (!value) return false;
+
+        const regex = /^(?=.*[A-Z])/;
+        return regex.test(value);
+      },
+    )
+    .test("at-least-one-number", "Contains at leaset one number", (value) => {
+      if (!value) return false;
+
+      const regex = /^(?=.*\d)/;
+      return regex.test(value);
+    }),
   confirmPassword: Yup.string()
     .required()
     .oneOf([Yup.ref("password"), ""], "Password not match"),
@@ -42,6 +60,7 @@ export const login = async (req: Request, res: Response) => {
 
   const findUserByIdentifier = await UserModel.findOne({
     $or: [{ email: identifier }, { username: identifier }],
+    isActive: true,
   });
 
   if (!findUserByIdentifier) {
@@ -65,15 +84,24 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const checkAuth = async (req: IReqUser, res: Response) => {
-  /**
-   #swagger.security = [{
-    "bearerAuth": []
-   }]
-   */
-
   const authUser = req.user;
 
   const user = await UserModel.findById(authUser?.id);
 
   return res.json({ message: "Success", data: user });
+};
+
+export const activation = async (req: Request, res: Response) => {
+  const { code } = req.body as { code: string };
+
+  const user = await UserModel.findOneAndUpdate(
+    { activationCode: code },
+    { isActive: true },
+    {
+      returnDocument: "after",
+      runValidators: true,
+    },
+  );
+
+  res.json({ message: "Account successfully activated", data: user });
 };

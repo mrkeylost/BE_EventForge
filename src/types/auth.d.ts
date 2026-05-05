@@ -23,6 +23,7 @@ export interface User {
   profilePicture: string;
   isActive: boolean;
   activationCode: string;
+  createdAt?: string;
 }
 
 export interface IUserToken extends Omit<
