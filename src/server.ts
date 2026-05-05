@@ -1,7 +1,7 @@
 import express from "express";
 import router from "./routes/api";
-
-const PORT = 5001;
+import connectDB from "./repository/db";
+import { env } from "./utils/env";
 
 const app = express();
 
@@ -10,4 +10,15 @@ app.use(express.json());
 
 app.use("/api", router);
 
-app.listen(PORT, () => console.log("listening port"));
+async function init() {
+  try {
+    const res = await connectDB();
+    console.log(res);
+
+    app.listen(env.PORT, () => console.log("listening port"));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+init();
