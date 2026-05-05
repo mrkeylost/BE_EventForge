@@ -1,0 +1,158 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "v0.0.1",
+    "title": "Docs Event Management API",
+    "description": "Backend"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5001/api",
+      "description": "Development"
+    },
+    {
+      "url": "https://be-event-management-five.vercel.app/api",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/check-auth": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "example": "string"
+          },
+          "username": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
+          "password": {
+            "type": "string",
+            "example": "string"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "xml": {
+          "name": "RegisterRequest"
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "example": "string"
+          },
+          "password": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "xml": {
+          "name": "LoginRequest"
+        }
+      }
+    }
+  }
+}

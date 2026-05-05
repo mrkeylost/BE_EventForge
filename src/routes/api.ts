@@ -5,9 +5,37 @@ import { protectRoute } from "../middleware/auth.middleware";
 
 const router = express.Router();
 
-router.route("/auth/register").post(handleAsync(register));
-router.route("/auth/login").post(handleAsync(login));
+router.route("/auth/register").post(
+  /**
+    #swagger.requestBody = {
+      required: true,
+      schema: {$ref: "#/components/schemas/RegisterRequest"}
+    } 
+   */
+
+  handleAsync(register),
+);
+router.route("/auth/login").post(
+  /**
+    #swagger.requestBody = {
+      required: true,
+      schema: {$ref: "#/components/schemas/LoginRequest"}
+    } 
+   */
+
+  handleAsync(login),
+);
 router.route("/auth/logout").post();
-router.route("/auth/check-auth").get(protectRoute, handleAsync(checkAuth));
+router.route("/auth/check-auth").get(
+  protectRoute,
+
+  /**
+   #swagger.security = [{
+    "bearerAuth": []
+   }]
+   */
+
+  handleAsync(checkAuth),
+);
 
 export default router;

@@ -1,10 +1,13 @@
 import express from "express";
+import cors from "cors";
 import router from "./routes/api";
 import connectDB from "./repository/db";
 import { env } from "./utils/env";
+import docs from "./docs/route";
 
 const app = express();
 
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -13,6 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", router);
+docs(app);
 
 async function init() {
   try {

@@ -65,6 +65,12 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const checkAuth = async (req: IReqUser, res: Response) => {
+  /**
+   #swagger.security = [{
+    "bearerAuth": []
+   }]
+   */
+
   const authUser = req.user;
 
   const user = await UserModel.findById(authUser?.id);
