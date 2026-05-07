@@ -3,7 +3,7 @@ import swaggerAutogen from "swagger-autogen";
 const doc = {
   info: {
     version: "v0.0.1",
-    title: "Docs Event Management API",
+    title: "EventForge API Documentation",
     description: "Backend",
   },
   servers: [

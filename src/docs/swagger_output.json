@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "version": "v0.0.1",
-    "title": "Docs Event Management API",
+    "title": "EventForge API Documentation",
     "description": "Backend"
   },
   "servers": [
