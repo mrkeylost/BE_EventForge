@@ -95,7 +95,7 @@ export const activation = async (req: Request, res: Response) => {
   const { code } = req.body as { code: string };
 
   const user = await UserModel.findOneAndUpdate(
-    { activationCode: code },
+    { activationCode: code, isActive: false },
     { isActive: true },
     {
       returnDocument: "after",
