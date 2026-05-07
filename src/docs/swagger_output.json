@@ -72,16 +72,6 @@
         }
       }
     },
-    "/auth/logout": {
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/auth/check-auth": {
       "get": {
         "tags": [

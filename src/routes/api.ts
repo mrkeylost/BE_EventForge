@@ -34,8 +34,6 @@ router.route("/auth/login").post(
   handleAsync(login),
 );
 
-router.route("/auth/logout").post();
-
 router.route("/auth/check-auth").get(
   protectRoute,
 
