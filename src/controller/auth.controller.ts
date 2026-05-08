@@ -4,6 +4,7 @@ import { compare } from "bcryptjs";
 import { IReqUser, TLogin, TRegister } from "../types/auth";
 import UserModel from "../models/User";
 import { generateToken } from "../utils/jwt";
+import response from "../utils/response";
 
 const registerValidationSchema = Yup.object({
   fullName: Yup.string().required(),
@@ -49,10 +50,7 @@ export const register = async (req: Request, res: Response) => {
 
   await user.save();
 
-  res.status(200).json({
-    message: "Registration Success",
-    data: user,
-  });
+  return response.success(res, user, "Registration Success");
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -64,7 +62,7 @@ export const login = async (req: Request, res: Response) => {
   });
 
   if (!findUserByIdentifier) {
-    return res.json({ message: "invalid identifier or password", data: null });
+    return response.unauthorized(res, "invalid identifier or password");
   }
 
   const validatePassword: boolean = await compare(
@@ -72,7 +70,7 @@ export const login = async (req: Request, res: Response) => {
     findUserByIdentifier.password,
   );
   if (!validatePassword) {
-    return res.json({ message: "invalid identifier or password", data: null });
+    return response.unauthorized(res, "invalid identifier or password");
   }
 
   const token = generateToken({
@@ -80,7 +78,7 @@ export const login = async (req: Request, res: Response) => {
     role: findUserByIdentifier.role,
   });
 
-  return res.json({ message: "Login success", data: token });
+  return response.success(res, token, "Login success");
 };
 
 export const checkAuth = async (req: IReqUser, res: Response) => {
@@ -88,7 +86,7 @@ export const checkAuth = async (req: IReqUser, res: Response) => {
 
   const user = await UserModel.findById(authUser?.id);
 
-  return res.json({ message: "Success", data: user });
+  return response.success(res, user, "Validation Success");
 };
 
 export const activation = async (req: Request, res: Response) => {
@@ -103,5 +101,5 @@ export const activation = async (req: Request, res: Response) => {
     },
   );
 
-  res.json({ message: "Account successfully activated", data: user });
+  return response.success(res, user, "Account successfully activated");
 };

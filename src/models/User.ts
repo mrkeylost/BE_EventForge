@@ -3,6 +3,7 @@ import { User } from "../types/auth";
 import { encrypt } from "../utils/encryption";
 import { renderMailHtml, sendMail } from "../utils/mail/mail";
 import { env } from "../utils/env";
+import { ROLES } from "../utils/constant";
 
 const Schema = mongoose.Schema;
 
@@ -28,8 +29,8 @@ const userSchema = new Schema<User>(
     },
     role: {
       type: String,
-      enum: ["admin", "user"],
-      default: "user",
+      enum: [ROLES.ADMIN, ROLES.MEMBER],
+      default: ROLES.MEMBER,
     },
     profilePicture: {
       type: String,

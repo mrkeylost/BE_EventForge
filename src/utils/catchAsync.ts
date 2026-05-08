@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import response from "./response";
 
 export const handleAsync = (fn: Function) => {
   return async function (req: Request, res: Response, next: NextFunction) {
@@ -7,7 +8,7 @@ export const handleAsync = (fn: Function) => {
     } catch (error) {
       const err = error as unknown as Error;
 
-      res.json({ message: err.message, data: null });
+      response.error(res, err, err.message);
       next(error);
     }
   };

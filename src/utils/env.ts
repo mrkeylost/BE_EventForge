@@ -26,6 +26,10 @@ const EMAIL_SMTP_HOST: string = process.env.EMAIL_SMTP_HOST || "";
 const EMAIL_SMTP_SERVICE_NAME: string =
   process.env.EMAIL_SMTP_SERVICE_NAME || "";
 
+const CLOUDINARY_CLOUD_NAME: string = process.env.CLOUDINARY_CLOUD_NAME || "";
+const CLOUDINARY_API_KEY: string = process.env.CLOUDINARY_API_KEY || "";
+const CLOUDINARY_SECRET: string = process.env.CLOUDINARY_SECRET || "";
+
 export const env = {
   PORT,
   DB_URL,
@@ -37,5 +41,8 @@ export const env = {
   EMAIL_SMTP_HOST,
   EMAIL_SMTP_PORT,
   EMAIL_SMTP_SERVICE_NAME,
+  CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_SECRET,
   NODE_ENV: process.env.NODE_ENV || "development",
 };
