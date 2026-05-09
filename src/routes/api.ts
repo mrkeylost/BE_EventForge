@@ -18,6 +18,13 @@ import {
   uploadMultipleFile,
   uploadSingleFile,
 } from "../controller/media.controller";
+import {
+  createCategory,
+  findAllCategory,
+  findOneCategory,
+  removeCategory,
+  updateCategory,
+} from "../controller/category.controller";
 
 const router = express.Router();
 
@@ -101,6 +108,28 @@ router
   .delete(
     [protectRoute, accessControlList([ROLES.ADMIN, ROLES.MEMBER])],
     handleAsync(removeFile),
+  );
+
+//=========================== CATEGORY ==============================
+
+router
+  .route("/category")
+  .get(handleAsync(findAllCategory))
+  .post(
+    [protectRoute, accessControlList([ROLES.ADMIN])],
+    handleAsync(createCategory),
+  );
+
+router
+  .route("/category/:id")
+  .get(handleAsync(findOneCategory))
+  .put(
+    [protectRoute, accessControlList([ROLES.ADMIN])],
+    handleAsync(updateCategory),
+  )
+  .delete(
+    [protectRoute, accessControlList([ROLES.ADMIN])],
+    handleAsync(removeCategory),
   );
 
 export default router;
