@@ -38,11 +38,17 @@ const doc = {
       ActivationRequest: {
         code: "string",
       },
+      uploadSingleRequest: {},
     },
   },
 };
 
 const outputFile = "./swagger_output.json";
-const endpointsFiles = ["../routes/api.ts"];
+const endpointsFiles = [
+  "../routes/auth.routes.ts",
+  "../routes/media.routes.ts",
+  "../routes/category.routes.ts",
+  "../routes/region.routes.ts",
+];
 
 swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc);
