@@ -3,6 +3,7 @@ import { IReqUser } from "../types/auth";
 import CategoryModel, { Category, categoryDAO } from "../models/Category";
 import response from "../utils/response";
 import { IPaginationQuery } from "../types/pagination";
+import { QueryFilter } from "mongoose";
 
 export const createCategory = async (req: IReqUser, res: Response) => {
   const { name, description, icon } = req.body as unknown as Category;
@@ -27,7 +28,7 @@ export const findAllCategory = async (req: IReqUser, res: Response) => {
     search,
   } = req.query as unknown as IPaginationQuery;
 
-  const query = {};
+  const query: QueryFilter<typeof CategoryModel> = {};
 
   if (search) {
     Object.assign(query, {
@@ -84,7 +85,9 @@ export const updateCategory = async (req: IReqUser, res: Response) => {
 export const removeCategory = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
 
-  const category = await CategoryModel.findByIdAndDelete(id);
+  const category = await CategoryModel.findByIdAndDelete(id, {
+    returnDocument: "after",
+  });
 
   response.success(res, category, "Delete category success");
 };

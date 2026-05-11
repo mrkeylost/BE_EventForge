@@ -4,6 +4,7 @@ import AuthRouter from "./routes/auth.routes";
 import MediaRouter from "./routes/media.routes";
 import CategoryRouter from "./routes/category.routes";
 import RegionsRouter from "./routes/region.routes";
+import EventRouter from "./routes/event.routes";
 import connectDB from "./repository/db";
 import { env } from "./utils/env";
 import docs from "./docs/route";
@@ -22,6 +23,7 @@ app.use("/api/auth", AuthRouter);
 app.use("/api/media", MediaRouter);
 app.use("/api/category", CategoryRouter);
 app.use("/api/regions", RegionsRouter);
+app.use("/api/events", EventRouter);
 docs(app);
 
 async function init() {
