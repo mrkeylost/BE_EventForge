@@ -38,7 +38,70 @@ const doc = {
       ActivationRequest: {
         code: "string",
       },
-      uploadSingleRequest: {},
+
+      RemoveMediaRequest: {
+        fileUrl: "string",
+      },
+
+      CreateCategoryRequest: {
+        name: "string",
+        description: "string",
+        icon: "string",
+      },
+
+      UpdateCategoryRequest: {
+        name: "string",
+        description: "string",
+        icon: "string",
+      },
+
+      CreateEventRequest: {
+        name: "string",
+        startDate: "string",
+        endDate: "string",
+        description: "string",
+        banner: "string",
+        isFeatured: "boolean",
+        isOnline: "boolean",
+        isPublish: "boolean",
+        category: "string",
+
+        location: {
+          region: 0,
+
+          coordinates: {
+            type: "array",
+            items: {
+              type: "number",
+            },
+            example: [0, 0],
+          },
+        },
+      },
+
+      UpdateEventRequest: {
+        name: "string",
+        startDate: "string",
+        endDate: "string",
+        description: "string",
+        banner: "string",
+        isFeatured: "boolean",
+        isOnline: "boolean",
+        isPublish: "boolean",
+        category: "string",
+
+        location: {
+          region: 0,
+
+          coordinates: {
+            type: "array",
+            items: {
+              type: "number",
+            },
+            example: [0, 0],
+          },
+        },
+      },
     },
   },
 };
@@ -49,6 +112,7 @@ const endpointsFiles = [
   "../routes/media.routes.ts",
   "../routes/category.routes.ts",
   "../routes/region.routes.ts",
+  "../routes/event.routes.ts",
 ];
 
 swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc);

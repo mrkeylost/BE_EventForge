@@ -25,9 +25,24 @@ router.route("/upload-single").post(
     /**
     #swagger.path = '/media/upload-single'
     #swagger.tags = ['Media']
+    #swagger.security = [{
+      "bearerAuth": []
+    }]
     #swagger.requestBody = {
       required: true,
-      schema: {$ref: "#/components/schemas/UploadSingleRequest"}
+      content: {
+        "multipart/form-data": {
+          schema: {
+            type: "object",
+            properties: {
+              file: {
+                type: "string",
+                format: "binary"
+              }
+            }
+          }
+        }
+      }
     } 
    */
 
@@ -45,9 +60,27 @@ router.route("/upload-multiple").post(
     /**
     #swagger.path = '/media/upload-multiple'
     #swagger.tags = ['Media']
+    #swagger.security = [{
+      "bearerAuth": []
+    }]
     #swagger.requestBody = {
       required: true,
-      schema: {$ref: "#/components/schemas/UploadMultipleRequest"}
+      content: {
+        "multipart/form-data": {
+          schema: {
+            type: "object",
+            properties: {
+              files: {
+                type: "array",
+                items: {
+                  type: "string",
+                  format: "binary"
+                }
+              }
+            }
+          }
+        }
+      }
     } 
    */
 
@@ -61,6 +94,9 @@ router.route("/remove").delete(
     /**
     #swagger.path = '/media/upload-single'
     #swagger.tags = ['Media']
+    #swagger.security = [{
+      "bearerAuth": []
+    }]
     #swagger.requestBody = {
       required: true,
       schema: {$ref: "#/components/schemas/RemoveMediaRequest"}

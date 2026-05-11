@@ -21,10 +21,27 @@ router
       /**
     #swagger.path = '/events'
     #swagger.tags = ['Event']
-    #swagger.requestBody = {
-      required: true,
-      schema: {$ref: "#/components/schemas/FindAllEventRequest"}
-    } 
+
+    #swagger.parameters['page'] = {
+      in: 'query',
+      required: false,
+      type: 'integer',
+      default: 1
+    }
+
+    #swagger.parameters['limit'] = {
+      in: 'query',
+      required: false,
+      type: 'integer',
+      default: 10
+    }
+
+    #swagger.parameters['search'] = {
+      in: 'query',
+      required: false,
+      type: 'string',
+      default: ''
+    }
    */
 
       findAllEvent,
@@ -36,6 +53,9 @@ router
     /**
     #swagger.path = '/events'
     #swagger.tags = ['Event']
+    #swagger.security = [{
+      "bearerAuth": []
+    }]
     #swagger.requestBody = {
       required: true,
       schema: {$ref: "#/components/schemas/CreateEventRequest"}
@@ -52,10 +72,6 @@ router
       /**
     #swagger.path = '/events/{id}'
     #swagger.tags = ['Event']
-    #swagger.requestBody = {
-      required: true,
-      schema: {$ref: "#/components/schemas/FindOneEventRequest"}
-    } 
    */
 
       findOneEvent,
@@ -67,6 +83,9 @@ router
       /**
     #swagger.path = '/events/{id}'
     #swagger.tags = ['Event']
+    #swagger.security = [{
+      "bearerAuth": []
+    }]
     #swagger.requestBody = {
       required: true,
       schema: {$ref: "#/components/schemas/UpdateEventRequest"}
@@ -82,10 +101,9 @@ router
       /**
     #swagger.path = '/events/{id}'
     #swagger.tags = ['Event']
-    #swagger.requestBody = {
-      required: true,
-      schema: {$ref: "#/components/schemas/DeleteEventRequest"}
-    } 
+    #swagger.security = [{
+      "bearerAuth": []
+    }]
    */
 
       removeEvent,
@@ -94,12 +112,8 @@ router
 
 router.route("/:slug/slug").get(
   /**
-    #swagger.path = '/events/{id}/slug'
+    #swagger.path = '/events/{slug}/slug'
     #swagger.tags = ['Event']
-    #swagger.requestBody = {
-      required: true,
-      schema: {$ref: "#/components/schemas/FindOneBySlugRequest"}
-    } 
    */
 
   handleAsync(findOneBySlug),

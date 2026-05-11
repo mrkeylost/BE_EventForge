@@ -20,10 +20,27 @@ router
       /**
     #swagger.path = '/category'
     #swagger.tags = ['Category']
-    #swagger.requestBody = {
-      required: true,
-      schema: {$ref: "#/components/schemas/FindAllCategoryRequest"}
-    } 
+
+    #swagger.parameters['page'] = {
+      in: 'query',
+      required: false,
+      type: 'integer',
+      default: 1
+    }
+
+    #swagger.parameters['limit'] = {
+      in: 'query',
+      required: false,
+      type: 'integer',
+      default: 10
+    }
+
+    #swagger.parameters['search'] = {
+      in: 'query',
+      required: false,
+      type: 'string',
+      default: ''
+    }
    */
 
       findAllCategory,
@@ -35,6 +52,9 @@ router
     /**
     #swagger.path = '/category'
     #swagger.tags = ['Category']
+    #swagger.security = [{
+    "bearerAuth": []
+   }]
     #swagger.requestBody = {
       required: true,
       schema: {$ref: "#/components/schemas/CreateCategoryRequest"}
@@ -51,10 +71,6 @@ router
       /**
     #swagger.path = '/category/{id}'
     #swagger.tags = ['Category']
-    #swagger.requestBody = {
-      required: true,
-      schema: {$ref: "#/components/schemas/FindOneCategoryRequest"}
-    } 
    */
 
       findOneCategory,
@@ -66,6 +82,9 @@ router
       /**
     #swagger.path = '/category/{id}'
     #swagger.tags = ['Category']
+    #swagger.security = [{
+      "bearerAuth": []
+    }]
     #swagger.requestBody = {
       required: true,
       schema: {$ref: "#/components/schemas/UpdateCategoryRequest"}
@@ -81,10 +100,9 @@ router
       /**
     #swagger.path = '/category/{id}'
     #swagger.tags = ['Category']
-    #swagger.requestBody = {
-      required: true,
-      schema: {$ref: "#/components/schemas/RemoveCategoryRequest"}
-    } 
+    #swagger.security = [{
+      "bearerAuth": []
+    }]
    */
 
       removeCategory,
