@@ -15,7 +15,7 @@ const registerValidationSchema = Yup.object({
     .min(6, "Password must be at least 6 characters")
     .test(
       "at-least-one-uppercase-letter",
-      "Contains at leaset one uppercase letter",
+      "Password must contains at least one uppercase letter",
       (value) => {
         if (!value) return false;
 
@@ -23,12 +23,16 @@ const registerValidationSchema = Yup.object({
         return regex.test(value);
       },
     )
-    .test("at-least-one-number", "Contains at leaset one number", (value) => {
-      if (!value) return false;
+    .test(
+      "at-least-one-number",
+      "Password must Contains at least one number",
+      (value) => {
+        if (!value) return false;
 
-      const regex = /^(?=.*\d)/;
-      return regex.test(value);
-    }),
+        const regex = /^(?=.*\d)/;
+        return regex.test(value);
+      },
+    ),
   confirmPassword: Yup.string()
     .required()
     .oneOf([Yup.ref("password"), ""], "Password not match"),
