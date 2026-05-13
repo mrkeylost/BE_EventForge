@@ -92,7 +92,7 @@ router.route("/remove").delete(
   [protectRoute, accessControlList([ROLES.ADMIN, ROLES.MEMBER])],
   handleAsync(
     /**
-    #swagger.path = '/media/upload-single'
+    #swagger.path = '/media/remove'
     #swagger.tags = ['Media']
     #swagger.security = [{
       "bearerAuth": []
