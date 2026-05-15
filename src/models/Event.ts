@@ -100,6 +100,8 @@ eventSchema.pre("save", function () {
   }
 });
 
+eventSchema.index({ name: "text", description: "text" });
+
 const EventModel = mongoose.model<Event>("Event", eventSchema);
 
 export default EventModel;
