@@ -68,14 +68,8 @@ const doc = {
 
         location: {
           region: 0,
-
-          coordinates: {
-            type: "array",
-            items: {
-              type: "number",
-            },
-            example: [0, 0],
-          },
+          coordinates: [0, 0],
+          address: "string",
         },
       },
 
