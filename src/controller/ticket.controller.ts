@@ -17,6 +17,10 @@ export const createTicket = async (req: IReqUser, res: Response) => {
 export const updateTicket = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
 
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
+
   const ticket = await TicketModel.findByIdAndUpdate(id, req.body, {
     returnDocument: "after",
     runValidators: true,
@@ -27,6 +31,10 @@ export const updateTicket = async (req: IReqUser, res: Response) => {
 
 export const removeTicket = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
+
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
 
   const ticket = await TicketModel.findByIdAndDelete(id, {
     returnDocument: "after",
@@ -75,8 +83,11 @@ export const findAllTicket = async (req: IReqUser, res: Response) => {
 export const findOneTicket = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
 
-  const ticket = await TicketModel.findById(id);
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
 
+  const ticket = await TicketModel.findById(id);
   if (!ticket) {
     return response.notFound(res, `Data with id ${id} does not exist`);
   }

@@ -3,7 +3,7 @@ import { IReqUser } from "../types/auth";
 import EventModel, { TEvent } from "../models/Event";
 import response from "../utils/response";
 import { IPaginationQuery } from "../types/pagination";
-import { QueryFilter } from "mongoose";
+import { isValidObjectId, QueryFilter } from "mongoose";
 
 export const createEvent = async (req: IReqUser, res: Response) => {
   const payload = { ...req.body, createdBy: req.user?.id } as TEvent;
@@ -56,8 +56,11 @@ export const findAllEvent = async (req: IReqUser, res: Response) => {
 export const findOneEvent = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
 
-  const event = await EventModel.findById(id);
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
 
+  const event = await EventModel.findById(id);
   if (!event) {
     return response.notFound(res, `Data with id ${id} does not exist`);
   }
@@ -67,6 +70,10 @@ export const findOneEvent = async (req: IReqUser, res: Response) => {
 
 export const updateEvent = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
+
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
 
   const event = await EventModel.findByIdAndUpdate(id, req.body, {
     returnDocument: "after",
@@ -78,6 +85,10 @@ export const updateEvent = async (req: IReqUser, res: Response) => {
 
 export const removeEvent = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
+
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
 
   const event = await EventModel.findByIdAndDelete(id, {
     returnDocument: "after",

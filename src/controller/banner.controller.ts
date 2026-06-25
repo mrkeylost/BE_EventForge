@@ -3,7 +3,7 @@ import { IReqUser } from "../types/auth";
 import BannerModel, { bannerDAO } from "../models/Banner";
 import response from "../utils/response";
 import { IPaginationQuery } from "../types/pagination";
-import { QueryFilter } from "mongoose";
+import { isValidObjectId, QueryFilter } from "mongoose";
 
 export const createBanner = async (req: IReqUser, res: Response) => {
   await bannerDAO.validate(req.body);
@@ -18,6 +18,10 @@ export const createBanner = async (req: IReqUser, res: Response) => {
 export const updateBanner = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
 
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
+
   const banner = await BannerModel.findByIdAndUpdate(id, req.body, {
     returnDocument: "after",
     runValidators: true,
@@ -28,6 +32,10 @@ export const updateBanner = async (req: IReqUser, res: Response) => {
 
 export const removeBanner = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
+
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
 
   const banner = await BannerModel.findByIdAndDelete(id, {
     returnDocument: "after",
@@ -78,8 +86,11 @@ export const findAllBanner = async (req: IReqUser, res: Response) => {
 export const findOneBanner = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
 
-  const banner = await BannerModel.findById(id);
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
 
+  const banner = await BannerModel.findById(id);
   if (!banner) {
     return response.notFound(res, `Data with id ${id} does not exist`);
   }

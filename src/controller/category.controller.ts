@@ -3,7 +3,7 @@ import { IReqUser } from "../types/auth";
 import CategoryModel, { Category, categoryDAO } from "../models/Category";
 import response from "../utils/response";
 import { IPaginationQuery } from "../types/pagination";
-import { QueryFilter } from "mongoose";
+import { isValidObjectId, QueryFilter } from "mongoose";
 
 export const createCategory = async (req: IReqUser, res: Response) => {
   const { name, description, icon } = req.body as unknown as Category;
@@ -66,8 +66,11 @@ export const findAllCategory = async (req: IReqUser, res: Response) => {
 export const findOneCategory = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
 
-  const category = await CategoryModel.findById(id);
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
 
+  const category = await CategoryModel.findById(id);
   if (!category) {
     return response.notFound(res, `Data with id ${id} does not exist`);
   }
@@ -77,6 +80,10 @@ export const findOneCategory = async (req: IReqUser, res: Response) => {
 
 export const updateCategory = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
+
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
 
   const category = await CategoryModel.findByIdAndUpdate(id, req.body, {
     returnDocument: "after",
@@ -88,6 +95,10 @@ export const updateCategory = async (req: IReqUser, res: Response) => {
 
 export const removeCategory = async (req: IReqUser, res: Response) => {
   const { id } = req.params;
+
+  if (!isValidObjectId(id)) {
+    return response.notFound(res, "Invalid ID Format");
+  }
 
   const category = await CategoryModel.findByIdAndDelete(id, {
     returnDocument: "after",
