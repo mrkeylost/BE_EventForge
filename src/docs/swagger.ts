@@ -96,6 +96,22 @@ const doc = {
           },
         },
       },
+
+      CreateTicketRequest: {
+        price: "number",
+        name: "string",
+        event: "string",
+        description: "string",
+        quantity: "number",
+      },
+
+      UpdateTicketRequest: {
+        price: "number",
+        name: "string",
+        event: "string",
+        description: "string",
+        quantity: "number",
+      },
     },
   },
 };
@@ -107,6 +123,7 @@ const endpointsFiles = [
   "../routes/category.routes.ts",
   "../routes/region.routes.ts",
   "../routes/event.routes.ts",
+  "../routes/ticket.routes.ts",
 ];
 
 swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc);

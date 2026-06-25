@@ -5,6 +5,7 @@ import MediaRouter from "./routes/media.routes";
 import CategoryRouter from "./routes/category.routes";
 import RegionsRouter from "./routes/region.routes";
 import EventRouter from "./routes/event.routes";
+import TicketRouter from "./routes/ticket.routes";
 import connectDB from "./repository/db";
 import { env } from "./utils/env";
 import docs from "./docs/route";
@@ -24,6 +25,7 @@ app.use("/api/media", MediaRouter);
 app.use("/api/category", CategoryRouter);
 app.use("/api/regions", RegionsRouter);
 app.use("/api/events", EventRouter);
+app.use("/api/tickets", TicketRouter);
 docs(app);
 
 async function init() {
