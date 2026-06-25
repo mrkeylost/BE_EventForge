@@ -7,16 +7,16 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5001/api",
-      "description": "Development"
-    },
-    {
       "url": "https://be-event-management-five.vercel.app/api",
       "description": "Production"
+    },
+    {
+      "url": "http://localhost:5001/api",
+      "description": "Development"
     }
   ],
   "paths": {
-    "/auth/login": {
+    "/auth/register": {
       "post": {
         "tags": [
           "Auth"
@@ -44,7 +44,7 @@
         }
       }
     },
-    "/auth/register": {
+    "/auth/login": {
       "post": {
         "tags": [
           "Auth"

@@ -8,12 +8,12 @@ const doc = {
   },
   servers: [
     {
-      url: "http://localhost:5001/api",
-      description: "Development",
-    },
-    {
       url: "https://be-event-management-five.vercel.app/api",
       description: "Production",
+    },
+    {
+      url: "http://localhost:5001/api",
+      description: "Development",
     },
   ],
   components: {

@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.route("/register").post(
   /**
-    #swagger.path = '/auth/login'
+    #swagger.path = '/auth/register'
     #swagger.tags = ['Auth']
     #swagger.requestBody = {
       required: true,
@@ -25,7 +25,7 @@ router.route("/register").post(
 
 router.route("/login").post(
   /**
-    #swagger.path = '/auth/register'
+    #swagger.path = '/auth/login'
     #swagger.tags = ['Auth']
     #swagger.requestBody = {
       required: true,
