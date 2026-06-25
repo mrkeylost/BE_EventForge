@@ -58,6 +58,10 @@ export const findOneEvent = async (req: IReqUser, res: Response) => {
 
   const event = await EventModel.findById(id);
 
+  if (!event) {
+    return response.notFound(res, `Data with id ${id} does not exist`);
+  }
+
   response.success(res, event, "Find one event success");
 };
 

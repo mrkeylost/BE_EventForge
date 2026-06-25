@@ -77,6 +77,10 @@ export const findOneTicket = async (req: IReqUser, res: Response) => {
 
   const ticket = await TicketModel.findById(id);
 
+  if (!ticket) {
+    return response.notFound(res, `Data with id ${id} does not exist`);
+  }
+
   response.success(res, ticket, "Update ticket success");
 };
 

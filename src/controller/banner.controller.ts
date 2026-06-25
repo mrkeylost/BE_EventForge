@@ -80,5 +80,9 @@ export const findOneBanner = async (req: IReqUser, res: Response) => {
 
   const banner = await BannerModel.findById(id);
 
+  if (!banner) {
+    return response.notFound(res, `Data with id ${id} does not exist`);
+  }
+
   response.success(res, banner, "Find banner success");
 };

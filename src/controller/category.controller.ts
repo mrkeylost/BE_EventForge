@@ -68,6 +68,10 @@ export const findOneCategory = async (req: IReqUser, res: Response) => {
 
   const category = await CategoryModel.findById(id);
 
+  if (!category) {
+    return response.notFound(res, `Data with id ${id} does not exist`);
+  }
+
   response.success(res, category, "Find one category success");
 };
 
