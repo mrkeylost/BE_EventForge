@@ -29,6 +29,8 @@ const categorySchema = new Schema<Category>(
   { timestamps: true },
 );
 
+categorySchema.index({ name: "text", description: "text" });
+
 const CategoryModel = mongoose.model<Category>("Category", categorySchema);
 
 export default CategoryModel;

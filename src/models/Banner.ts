@@ -31,6 +31,8 @@ export const bannerSchema = new Schema<Banner>(
   { timestamps: true },
 );
 
+bannerSchema.index({ title: "text" });
+
 const BannerModel = mongoose.model<Banner>("Banner", bannerSchema);
 
 export default BannerModel;
