@@ -112,6 +112,18 @@ const doc = {
         description: "string",
         quantity: "number",
       },
+
+      CreateBannerRequest: {
+        title: "string",
+        image: "string",
+        isShow: "boolean",
+      },
+
+      UpdateBannerRequest: {
+        title: "string",
+        image: "string",
+        isShow: "boolean",
+      },
     },
   },
 };
@@ -124,6 +136,7 @@ const endpointsFiles = [
   "../routes/region.routes.ts",
   "../routes/event.routes.ts",
   "../routes/ticket.routes.ts",
+  "../routes/banner.routes.ts",
 ];
 
 swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc);

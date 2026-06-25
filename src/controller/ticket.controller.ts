@@ -1,15 +1,14 @@
 import { isValidObjectId, QueryFilter, ObjectId, Types } from "mongoose";
 import { Response } from "express";
-import ticketModel, { ticketDAO } from "../models/Ticket";
+import TicketModel, { ticketDAO } from "../models/Ticket";
 import { IReqUser } from "../types/auth";
 import response from "../utils/response";
 import { IPaginationQuery } from "../types/pagination";
-import TicketModel from "../models/Ticket";
 
 export const createTicket = async (req: IReqUser, res: Response) => {
   await ticketDAO.validate(req.body);
 
-  const ticket = new ticketModel(req.body);
+  const ticket = new TicketModel(req.body);
   await ticket.save();
 
   response.success(res, ticket, "Create ticket success");
