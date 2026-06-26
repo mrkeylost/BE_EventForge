@@ -2,6 +2,9 @@
 
 EventForge Backend is the backend service for an event management platform designed to streamline event planning, registration, and attendee management.
 
+# Current Docs
+https://be-event-management-five.vercel.app/api-docs
+
 ## Status
 
 🚧 This project is currently under active development and is not yet production-ready.
