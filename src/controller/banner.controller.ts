@@ -76,7 +76,7 @@ export const findAllBanner = async (req: IReqUser, res: Response) => {
     banner,
     {
       total: count,
-      totalPages: Math.ceil(limit / page),
+      totalPages: Math.ceil(count / limit),
       current: page,
     },
     "Find all banner success",
