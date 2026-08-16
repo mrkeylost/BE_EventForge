@@ -7,7 +7,7 @@ import {
   findOneEvent,
   removeEvent,
   updateEvent,
-} from "../controller/event.constroller";
+} from "../controller/event.controller";
 import { protectRoute } from "../middleware/auth.middleware";
 import { accessControlList } from "../middleware/access.middleware";
 import { ROLES } from "../utils/constant";
@@ -41,6 +41,30 @@ router
       required: false,
       type: 'string',
       default: ''
+    }
+
+    #swagger.parameters['category'] = {
+      in: 'query',
+      required: false,
+      type: 'string',
+    }
+
+    #swagger.parameters['isFeatured'] = {
+      in: 'query',
+      required: false,
+      type: 'boolean',
+    }
+
+    #swagger.parameters['isOnline'] = {
+      in: 'query',
+      required: false,
+      type: 'boolean',
+    }
+
+    #swagger.parameters['isPublish'] = {
+      in: 'query',
+      required: false,
+      type: 'boolean',
     }
    */
 

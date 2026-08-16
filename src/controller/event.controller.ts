@@ -2,7 +2,6 @@ import { Response } from "express";
 import { IReqUser } from "../types/auth";
 import EventModel, { TEvent } from "../models/Event";
 import response from "../utils/response";
-import { IPaginationQuery } from "../types/pagination";
 import { isValidObjectId, QueryFilter } from "mongoose";
 
 export const createEvent = async (req: IReqUser, res: Response) => {
@@ -16,26 +15,42 @@ export const createEvent = async (req: IReqUser, res: Response) => {
 };
 
 export const findAllEvent = async (req: IReqUser, res: Response) => {
+  const buildQuery = (filter: any) => {
+    let query: QueryFilter<typeof EventModel> = {};
+
+    if (filter.search) query.$text = { $search: filter.search };
+    if (filter.category) query.category = filter.category;
+    if (filter.isFeatured) query.isFeatured = filter.isFeatured === "true";
+    if (filter.isOnline) query.isOnline = filter.isOnline === "true";
+    if (filter.isPublish) query.isPublish = filter.isPublish === "true";
+
+    return query;
+  };
+
   const {
-    page = 1,
     limit = 10,
+    page = 1,
     search,
-  } = req.query as unknown as IPaginationQuery;
+    category,
+    isOnline,
+    isFeatured,
+    isPublish,
+  } = req.query;
 
-  const query: QueryFilter<typeof EventModel> = {};
+  const query = buildQuery({
+    search,
+    category,
+    isOnline,
+    isFeatured,
+    isPublish,
+  });
 
-  if (search) {
-    Object.assign(query, {
-      ...query,
-      $text: {
-        $search: search,
-      },
-    });
-  }
+  console.log("req.query:", req.query);
+  console.log("built query:", JSON.stringify(query));
 
   const event = await EventModel.find(query)
-    .limit(limit)
-    .skip((page - 1) * limit)
+    .limit(+limit)
+    .skip((+page - 1) * +limit)
     .sort({ createdAt: -1 })
     .exec();
 
@@ -46,8 +61,8 @@ export const findAllEvent = async (req: IReqUser, res: Response) => {
     event,
     {
       total: count,
-      totalPages: Math.ceil(count / limit),
-      current: page,
+      totalPages: Math.ceil(count / +limit),
+      current: +page,
     },
     "Find all event Success",
   );
